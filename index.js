@@ -14,7 +14,9 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //DB Connection
-mongoose.connect("mongodb://localhost:27017/blog_g16");
+mongoose.connect(
+  "mongodb+srv://root:mahirai@cluster0.bpf4kih.mongodb.net/blog_g16?retryWrites=true&w=majority"
+);
 mongoose.connection.on("connected", () => {
   console.log("DB Connected");
 });
