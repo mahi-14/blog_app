@@ -15,12 +15,12 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //DB Connection
+mongoose.set("strictQuery", false);
 mongoose.connect(
   "mongodb+srv://root:mahirai@cluster0.bpf4kih.mongodb.net/blog_g16?retryWrites=true&w=majority"
   //"mongodb://127.0.0.1:27017/blog_g16"
 );
 
-mongoose.set("strictQuery", true);
 mongoose.connection.on("connected", () => {
   console.log("DB Connected");
 });
