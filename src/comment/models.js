@@ -1,10 +1,10 @@
-const { Schema } = require("mongoose");
+const mongoose = require("mongoose");
 
-const commentSchema = new Schema(
+const commentSchema = new mongoose.Schema(
   {
     comment: String,
-    blog_id: { type: Schema.Types.ObjectId, ref: "Blog" },
-    user_id: { type: Schema.Types.ObjectId, ref: "User" }, //User -> from auth schema
+    blog_id: { type: mongoose.Schema.Types.ObjectId, ref: "Blog" },
+    user_id: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, //User -> from auth schema
   },
   { timestamps: true }
 );
