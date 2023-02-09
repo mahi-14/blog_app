@@ -2,18 +2,27 @@ const { Comment } = require("./models");
 
 //creating comment
 const createNewComment = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   var newComment = (await Comment.create(req.body)).populate("user_id");
-
+  //var allComments = await Comment.find().populate("user_id");
   return res.json({ status: "Created", newComment });
 };
 
-//reading comment
-const ReadComment = async (req, res) => {
-  console.log(req.body);
-  var allComments = await Comment.find().populate("user_id");
+//reading comments
+//get comment by user id
+const getCommentbyUser = async (req, res) => {
+  if (req.body.id) {
+    var displayComments = await Comment.find({ user_id: req.body.id });
+    return res.json({ status: "Comments found", displayComments });
+  } else {
+    return res.json({ status: "Please Enter User Id" });
+  }
+};
 
-  return res.json({ status: "all comments !!!!", allComments });
+//get comment by comment id
+const getCommentbyId = async (req, res) => {
+  var displayComment = await Comment.find({ _id: req.body.id });
+  return res.json({ status: "Comment found", displayComment });
 };
 
 //update comment
@@ -24,7 +33,6 @@ const updateComment = async (req, res) => {
   var oneComment = await Comment.findById(_id);
   oneComment.comment = data.comment;
   oneComment = await oneComment.save();
-
   return res.json({ status: "Comment Updated", oneComment });
 };
 
@@ -40,7 +48,8 @@ const deleteComment = async (req, res) => {
 
 module.exports = {
   createNewComment,
-  ReadComment,
   updateComment,
   deleteComment,
+  getCommentbyUser,
+  getCommentbyId,
 };

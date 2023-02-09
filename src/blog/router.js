@@ -10,7 +10,7 @@ const {
 const blogRouter = express.Router();
 
 blogRouter.post("/blog", isAuthenticated, createNewBlog);
-blogRouter.get("/blog/:id", readBlogByUserId);
+blogRouter.get("/blogByUser", readBlogByUserId);
 blogRouter.get("/blog", readBlogByBlogId);
 blogRouter.put("/update", updateBlog);
 blogRouter.delete("/delete", deleteBlog);

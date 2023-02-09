@@ -12,15 +12,17 @@ const createNewBlog = async (req, res) => {
 
 //reading blog by user id
 const readBlogByUserId = async (req, res) => {
-  console.log(req.body);
-  const { id } = req.body;
-  var oneBlog = await Blog.find({ id: id });
-  return res.json({ status: "particular blog record ", data: oneBlog });
+  if (req.body.id) {
+    var displayBlogs = await Blog.find({ user_id: req.body.id });
+    return res.json({ status: "blogs by particular record", displayBlogs });
+  } else {
+    return res.json({ status: "Please Enter User Id" });
+  }
 };
 
 //reading blog by blog id
 const readBlogByBlogId = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   var _id = req.query.id;
   var oneBlog = await Blog.findById(_id);
   return res.json({ status: "particular blog record ", oneBlog });
@@ -41,10 +43,9 @@ const updateBlog = async (req, res) => {
 //delete blogs
 const deleteBlog = async (req, res) => {
   var _id = req.query.id;
-  console.log(_id);
+  //console.log(_id);
   var oneBlog = await Blog.findById(_id);
   await Blog.findByIdAndDelete(_id);
-
   return res.json({ status: "Blog Deleted", oneBlog });
 };
 
